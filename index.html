@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine</title>
+<link href="https://fonts.googleapis.com/css2?family=Finger+Paint&display=swap" rel="stylesheet">
+
+<style>
+* {
+    font-family: 'Finger Paint', cursive;
+  }
+
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to bottom,#ffc0cb,#db1377); /* dark pink → light pink */
+    position: relative;
+}
+
+/* HEARTS */
+.heart {
+    position: absolute;
+    font-size: 20px;
+    color: #ff66c4;
+    animation: float 5s linear infinite;
+    z-index: 0;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-10vh) translateX(50px) rotate(360deg); opacity: 0; }
+}
+
+
+    .screen {
+        display: none;
+        padding: 60px 20px;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .active {
+        display: block;
+    }
+
+    h1 {
+        color: #d63384;
+        font-size: 28px;
+        margin-bottom: 40px;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 12px;
+        padding: 15px 30px;
+        background: #ff8ccf;
+        color: white;
+        border-radius: 25px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        transform: scale(1.08);
+        background: #ff66c4;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    /* Centering */
+#envelopeWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Closed Envelope */
+#envelopeImg {
+    width: 280px;
+    height: auto;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+    transition: transform 0.3s ease;
+}
+
+#envelopeClosed {
+    cursor: pointer;
+    text-align: center;
+}
+
+#envelopeClosed:hover #envelopeImg {
+    transform: scale(1.08);
+}
+
+#envelopeClosed p {
+    color: #fff;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/* Open Envelope Section */
+#envelopeOpen {
+    display: none;
+    margin-top: 20px;
+}
+
+
+#letterImage {
+    width: 90%;
+    max-width: 900px; /* make this bigger or smaller */
+    display: block;
+    margin-top: -90px;
+}
+.myGif {
+    display: block;
+    margin: 20px auto 0; /* centers it and pushes it down */
+    width: 250px; /* optional size */
+}
+#energyContainer {
+    width: 80%;
+    height: 25px;
+    background: #ddd;
+    border-radius: 20px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+#energyBar {
+    height: 100%;
+    width: 0%;
+    background: red;
+    transition: width 0.2s ease, background-color 0.3s ease;
+}
+
+#pressGif {
+    width: 200px;
+    display: block;
+    margin: 20px auto;
+    cursor: pointer;
+}
+#gameArea {
+    width: 90%;
+    height: 300px;
+    background: rgba(255, 182, 193, 0.4);
+    border-radius: 15px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+#heart {
+    font-size: 40px;
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#heart:hover {
+    transform: scale(1.2);
+}
+
+#scoreText, #triesText {
+    font-size: 20px;
+    color: #d63384;
+    margin: 5px;
+}
+
+.ticket {
+    width: 60%;                   /* smaller width */
+    background: #ffe4ec;
+    padding: 12px 18px;           /* smaller padding */
+    border-radius: 16px;
+    border: 2px dashed #ff7aa8;
+    font-size: 18px;              /* smaller text */
+    font-weight: bold;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* Smaller cutouts */
+.ticket::before,
+.ticket::after {
+    content: "";
+    position: absolute;
+    width: 18px;                  /* smaller circle */
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ticket::before {
+    left: -9px;
+}
+.ticket::after {
+    right: -9px;
+}
+.ticket {
+    margin: 20px 0;   /* adds one clean line of space above & below */
+}
+
+/* Smaller redeemed stamp */
+.redeemed-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    font-size: 20px;              /* smaller stamp text */
+    color: rgba(255, 0, 0, 0.6);
+    border: 2px solid rgba(255, 0, 0, 0.6);
+    padding: 2px 8px;
+    border-radius: 8px;
+    display: none;
+    font-weight: bold;
+}
+
+#noBtn {
+    position: absolute;
+    transition: 0.2s;
+}
+
+#screen14 {
+    position: relative;
+    height: 100vh;
+}
+
+#screen14 h1 {
+    margin-bottom: 50px;
+}
+.myImage {
+    width: 70%;
+    max-width: 500px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 15px;
+}
+
+</style>
+
+<script>
+    function goTo(id) {
+        document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+        document.getElementById(id).classList.add("active");
+    }
+
+    /* Envelope open logic */
+    let tapCount = 0;
+    function openEnvelope() {
+    tapCount++;
+    if (tapCount >= 3) {
+        document.getElementById("envelopeClosed").style.display = "none";
+        document.getElementById("envelopeOpen").style.display = "block";
+    }
+    document.getElementById("jumpImg").addEventListener("mouseenter", function () {
+    let positions = [
+        { top: "20px", left: "20px" },
+        { top: "60%", left: "10%" },
+        { top: "30%", left: "70%" }
+    ];
+
+    let randomSpot = positions[Math.floor(Math.random() * positions.length)];
+
+    this.style.top = randomSpot.top;
+    this.style.left = randomSpot.left;
+});
+}
+let energy = 0;
+let maxEnergy = 100;
+
+function increaseEnergy() {
+    if (energy < maxEnergy) {
+        energy += 10;  
+        updateEnergyBar();
+    }
+
+    if (energy >= maxEnergy) {
+        goTo('screen5');  
+    }
+}
+
+function updateEnergyBar() {
+    let bar = document.getElementById("energyBar");
+    bar.style.width = energy + "%";
+
+    if (energy < 40) {
+        bar.style.backgroundColor = "red";
+    } else if (energy < 80) {
+        bar.style.backgroundColor = "yellow";
+    } else {
+        bar.style.backgroundColor = "green";
+    }
+}
+
+let score = 0;
+let tries = 4;
+function catchHeart() {
+    tries--;
+    // Move heart randomly
+    let heart = document.getElementById("heart");
+    let game = document.getElementById("gameArea");
+    let maxX = game.clientWidth - 50;
+    let maxY = game.clientHeight - 50;
+    heart.style.left = Math.random() * maxX + "px";
+    heart.style.top = Math.random() * maxY + "px";
+    // Update tries text
+    document.getElementById("triesText").innerText = "Tries left: " + tries;
+    // Only increase score if less than 4
+    if (score < 4) {
+        score++;
+    }
+    // Update score text
+    document.getElementById("scoreText").innerText = "Score: " + score + " / 5";
+    // When tries finish → go to next screen
+    if (tries <= 0) {
+        goTo('screen10');  // change to your next page ID
+    }
+}
+
+function redeem(ticket) {
+    let stamp = ticket.querySelector(".redeemed-stamp");
+    stamp.style.display = "block"; // show stamp
+}
+
+// NO button runs away
+document.addEventListener("DOMContentLoaded", () => {
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+        const screen = document.getElementById("screen14");
+
+        // random positions inside the screen
+        let x = Math.random() * (screen.offsetWidth - 100);
+        let y = Math.random() * (screen.offsetHeight - 100);
+
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    });
+});
+
+</script>
+
+</head>
+<body>
+
+<!-- SCREEN 0 -->
+<div id="screen0" class="screen active">
+    <img src="cutegif0.gif" class="myGif">
+    <div class="btn" onclick="goTo('screen1')">Click Here plsssss</div>
+    <div class="btn" onclick="goTo('screen1.1')">No</div>
+</div>
+
+<!-- SCREEN 1.1 -->
+<div id="screen1.1" class="screen">
+    <h1>wife naa solra peecha keekanum purinchaa</h1>
+    <img src="cutegif11.gif" class="myGif">
+    <div class="btn" onclick="goTo('screen1')">okay</div>
+</div>
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen">
+    <h1>Chella kutty suprise aa nu theriyala already guess pannita 😤 irunthaalum keeken suprise ku ready aa</h1>
+    <div class="btn" onclick="goTo('screen2')">Yes😍</div>
+    <div class="btn" onclick="goTo('screen3')">No🙂‍↔️</div>
+    <img src="cutegif1.gif" class="myGif">
+    
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen">
+    <h1>Ennaku theriyum di nee surprise ku ready aa irupa nu athaan di create ye pannen🤭</h1>
+    <div class="btn" onclick="goTo('letterScreen')">Hmm</div>
+    <img src="cutegif5.gif" class="myGif">
+
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen">
+    <h1>No No you have to be ready for the surprise😤</h1>
+    <div class="btn" onclick="goTo('letterScreen')">Okie I'm ready😳</div>
+    <img src="cutegif2.gif" class="myGif">
+
+</div>
+<!-- SCREEN letter -->
+<div id="letterScreen" class="screen">
+    <div id="envelopeWrapper">
+        <div id="envelopeClosed" onclick="openEnvelope()">
+             <img src="envelope.png"  style="width: 40%; max-width: 400px;">
+            <p>Tap to open</p>
+        </div>
+
+        <div id="envelopeOpen">
+            <div id="vintagePaper">
+                <img src="loveletter.png" id="letterImage" style="width: 80%; max-width: 600px;">
+            </div>
+            <div class="btn" onclick="goTo('screen4')">Next page!🎀</div>
+        </div>
+    </div>
+</div>    
+<!-- SCREEN 4 -->
+<div id="screen4" class="screen">
+    <h1>Baby, comfort me I'm so tired ...</h1>
+    <div id="energyContainer">
+        <div id="energyBar"></div>
+    </div>
+    <img src="cutegif6.gif" id="pressGif" class="myGif" onclick="increaseEnergy()">
+</div>
+<!-- SCREEN 5 -->
+<div id="screen5" class="screen">
+    <h1>yeah..... full energy♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️♥️</h1>
+    <div class="btn" onclick="goTo('screen6')">Next page</div>
+    <img src="cutegif7.gif" class="myGif">
+</div>
+<!-- SCREEN 6 -->
+<div id="screen6" class="screen">
+    <h1>Some of our cute memories❤️</h1>
+    <img src="ph1.png"  style="width: 40%; max-width: 600px;">
+    <div class="btn" onclick="goTo('screen7')">Next page</div>
+</div>
+
+<!-- SCREEN 7 -->
+<div id="screen7" class="screen">
+    <h1>❤️</h1>
+    <img src="ph2.png"  style="width: 40%; max-width: 400px;">
+    <div class="btn" onclick="goTo('screen8')">Next page</div>
+</div>
+
+<!-- SCREEN 8 -->
+<div id="screen8" class="screen">
+    <h1>YOU N ME FOREVER TOGETHER❤️</h1>
+    <img src="ph3.png"  style="width: 40%; max-width: 400px;">
+    <div class="btn" onclick="goTo('screen9')">Next page</div>
+</div>
+
+<!-- SCREEN 9 -->
+<div id="screen9" class="screen">
+    <h1>Catch my moving heart! 💗 You have to score 5 points if you win you will get some gifts</h1>
+    <p id="scoreText">Score: 0 / 5</p>
+    <p id="triesText">Tries left: 4</p>
+    <div id="gameArea">
+        <div id="heart" onclick="catchHeart()">💗</div>
+    </div>
+</div>
+
+<!-- SCREEN 10 -->
+<div id="screen10" class="screen">
+    <h1>Enna chella kutty , 5 points eduthaathaane da gift kedaikum</h1>
+    <img src="cutegif10.gif" class="myGif">
+    <div class="btn" onclick="goTo('screen11')">Retry</div>
+</div>
+
+
+<!-- SCREEN 11 -->
+<div id="screen11" class="screen">
+    <h1>sorry madam, Retry ku option vaikala😅</h1>
+    <img src="cutegif12.gif" class="myGif">
+    <div class="btn" onclick="goTo('screen12')">next pages</div>
+</div>
+<!-- SCREEN 12 -->
+<div id="screen12" class="screen">
+    <h1>Nee en wife aa iruka naala nee win pannanum nu avasiyam illa di pondaati😚😚😚😚
+    </h1>
+    <img src="cutegif8.gif" class="myGif">
+    <div class="btn" onclick="goTo('screen13')">open gift</div>
+</div>
+
+<!-- SCREEN 13 -->
+<div id="screen13" class="screen">
+    <h1>Coupons If you want to use these coupons you have to take screenshot of the whole page and sent the pic to use it</h1>
+
+    <div id="coupons-container">
+        <div class="ticket" onclick="redeem(this)">
+            <span class="ticket-text">anytime kiss coupon "validity - infinity"</span>
+            <span class="redeemed-stamp">REDEEMED</span>
+        </div>
+
+        <div class="ticket" onclick="redeem(this)">
+            <span class="ticket-text">don't play games now coupon "validity - 10 times"</span>
+            <span class="redeemed-stamp">REDEEMED</span>
+        </div>
+
+        <div class="ticket" onclick="redeem(this)">
+            <span class="ticket-text">Dont ask for rub coupon "validity - expired😅"</span>
+            <span class="redeemed-stamp">REDEEMED</span>
+        </div>
+
+        <div class="ticket" onclick="redeem(this)">
+            <span class="ticket-text">Make a wish coupon "validity - 5 times"</span>
+            <span class="redeemed-stamp">REDEEMED</span>
+        </div>
+
+        <div class="ticket" onclick="redeem(this)">
+            <span class="ticket-text">Stop arguing coupon "validity - infinity" </span>
+            <span class="redeemed-stamp">REDEEMED</span>
+        </div>
+          <div class="ticket" onclick="redeem(this)">
+            <span class="ticket-text">Ask for rub coupon "validity - infinity"</span>
+            <span class="redeemed-stamp">REDEEMED</span>
+        </div>
+        <div class="btn" onclick="goTo('screen14')"></div>
+    </div>
+</div>
+
+<!-- SCREEN 14 -->
+<div id="screen14" class="screen">
+    <h1>you have already been my valentine for 1500 days but still keekanum la 
+        Chella kutty will you be my valentine💖</h1>
+    <img src="cutegif9.jpg" class="myImage">
+    <!-- YES button -->
+    <div class="btn" onclick="goTo('screen15')" id="yesBtn">YES 💗</div>
+    <!-- NO button that runs away -->
+    <div class="btn" id="noBtn">NO 😭</div>
+</div>
+
+<!-- SCREEN 15 -->
+<div id="screen15" class="screen">
+    
+    <img src="cutegif13.gif" class="myGif">
+</div>
+
+</body>
+</html>
+
